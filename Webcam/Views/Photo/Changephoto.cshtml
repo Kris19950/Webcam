@@ -1,0 +1,125 @@
+﻿@model System.Collections.Generic.List<Webcam.Models.Photo>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Changephoto";
+}
+
+<script type="text/javascript">
+
+    function ShowPopUp() {
+
+        window.open('/Photo/Index/', "wndPopUp", 'width=770,height=600,left=100, top=100,resizable=no');
+
+    }
+
+    function ShowAuto() {
+
+        window.open('/Photo/Auto/', "wndPopUp", 'width=1020,height=950,left=100,top=100,resizable=no');
+
+    }
+
+</script>
+
+<header>
+
+    <center>
+
+        <h2>Badanie czerwieni ust</h2>
+        <h1>
+            <ul class="menu">
+                <li><a href="#intro">Wprowadzenie</a></li>
+                <li><a href="#one">Personalizacja</a></li>
+                <li><a href="#two">Akwizycja Obrazu</a></li>
+                <li><a href="#work">Baza Danych</a></li>
+
+                <li>
+                    @Html.Action("UserInfo")
+                </li>
+
+
+            </ul>
+        </h1>
+    </center>
+</header>
+<section id="intro" class="main style1 dark fullscreen">
+    <div class="content">
+        <header>
+            <h2>Witam.</h2>
+        </header>
+        <p>
+            Znajdujesz sie na stronie, która jest poświęcona badaniu czerwieni ust.
+        </p>
+        <footer>
+            <a href="#one" class="button style2 down">More</a>
+        </footer>
+    </div>
+</section>
+
+
+
+<section id="one" class="main style2 right dark fullscreen">
+    <div class="content box style2">
+        <header>
+            <h2>Personalizacja</h2>
+        </header>
+        Do celów dalszej pracy systemu potrzebne są Państwa dane. Proszę o wybranie odpowiedniej opcj.
+        <br />
+        <input type="button" id="btnSave" value="Nowy użytkwnik" onclick="location.href='@Url.Action("Register", "Account")'"> <br />
+        <br />
+        <input type="button" id="btnSave" value="Kolejna wizyta" onclick="location.href='@Url.Action("Login", "Account")'">
+
+    </div>
+    <a href="#two" class="button style2 down anchored">Next</a>
+</section>
+
+<section id="two" class="main style2 left dark fullscreen">
+    <div class="content box style2">
+        <header>
+            <h2>Akwizycja Obrazu</h2>
+        </header>
+        
+
+
+            <br />
+
+      @if (User.Identity.IsAuthenticated)
+      {
+        <input type="button" id="btnSave" value="Zrób zdjecie" onclick="ShowPopUp();" />
+        <input type="button" id="btnSave" value="Sekwencja" onclick="ShowAuto();" />
+      }
+        else
+        {
+          <p>Ta funkcja aplikacji będzie dostępna dopiero po zalogowaniu się użytkownika do systemu</p>
+            <input type="button" id="btnSave" disabled="disabled" value="Zrób zdjecie" onclick="ShowPopUp();" />
+            <input type="button" id="btnSave" disabled="disabled" value="Sekwencja" onclick="ShowAuto();" />
+        }
+</div>
+    <a href="#work" class="button style2 down anchored">Next</a>
+</section>
+
+<section id="work" class="main style3 primary">
+    <div class="content">
+        <header>
+            <h2>Baza Danych</h2>
+
+
+
+        </header>
+        @foreach (var photo in Model)
+        {
+            <img src="@Url.Action("GetPhoto", new { id = photo.Id })" />
+        }
+        <!-- Gallery  -->
+
+
+    </div>
+</section>
+<footer>
+    <div class="content-wrapper">
+
+    </div>
+    <ul class="menu">
+        <li>&copy; Untitled</li>
+        <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+    </ul>
+</footer>

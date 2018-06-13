@@ -1,0 +1,362 @@
+﻿@{
+    ViewBag.Title = "Auto";
+}
+
+<script type="text/javascript">
+    //zmienne któr wskazują na lampe z danej sekwencji, dzięi czemu po wciśnienicu guzika wyboru lampy wiemy które światło włączyć
+    var g1;
+    var p1;
+    var l1;
+    var d1;
+    var g2;
+    var p2;
+    var l2;
+    var d2;
+    var g3;
+    var p3;
+    var l3;
+    var d3;
+    var g4;
+    var p4;
+    var l4;
+    var d4;
+    var g5;
+    var p5;
+    var l5;
+    var d5;
+    
+    // przypisanie wartości do zmiennych. Po wciśnieciu odpowiedniego guzika funkcjje przypisują zmiennym wartość odpowiedzialną za właczenie danej lampy
+    function G1() {
+    
+        document.getElementById('kolor1').style.backgroundColor = '#344732';
+
+        g1 = 2;
+       
+    }
+
+    function P1() {
+        document.getElementById('kolor4').style.backgroundColor = '#344732';
+            p1 = 4;
+    }
+
+    function L1() {
+        document.getElementById('kolor3').style.backgroundColor = '#344732';
+            l1 = 3;
+    }
+
+    function D1() {
+        document.getElementById('kolor2').style.backgroundColor = '#344732';
+            d1 = 1;
+    }
+
+    function G2() {
+        document.getElementById('kolor5').style.backgroundColor = '#344732';
+        g2 = 2;
+    }
+
+    function P2() {
+        document.getElementById('kolor8').style.backgroundColor = '#344732';
+        p2 = 4;
+    }
+
+    function L2() {
+        document.getElementById('kolor7').style.backgroundColor = '#344732';
+        l2= 3;
+    }
+
+    function D2() {
+        document.getElementById('kolor6').style.backgroundColor = '#344732';
+        d2 = 1;
+    }
+
+    function G3() {
+        document.getElementById('kolor9').style.backgroundColor = '#344732';
+        g3 = 2;
+    }
+
+    function P3() {
+        document.getElementById('kolor12').style.backgroundColor = '#344732';
+        p3 = 4;
+    }
+
+    function L3() {
+        document.getElementById('kolor11').style.backgroundColor = '#344732';
+        l3 = 3;
+    }
+
+    function D3() {
+        document.getElementById('kolor10').style.backgroundColor = '#344732';
+        d3 = 1;
+    }
+
+    function G4() {
+        document.getElementById('kolor13').style.backgroundColor = '#344732';
+        g4 = 2;
+    }
+
+    function P4() {
+        document.getElementById('kolor16').style.backgroundColor = '#344732';
+        p4 = 4;
+    }
+
+    function L4() {
+        document.getElementById('kolor15').style.backgroundColor = '#344732';
+        l4 = 3;
+    }
+
+    function D4() {
+        document.getElementById('kolor14').style.backgroundColor = '#344732';
+        d4 = 1;
+    }
+
+    function G5() {
+        document.getElementById('kolor17').style.backgroundColor = '#344732';
+        g5 = 2;
+    }
+
+    function P5() {
+        document.getElementById('kolor20').style.backgroundColor = '#344732';
+        p5 = 4;
+    }
+
+    function L5() {
+        document.getElementById('kolor19').style.backgroundColor = '#344732';
+        l5 = 3;
+    }
+
+    function D5() {
+        document.getElementById('kolor18').style.backgroundColor = '#344732';
+        d5 = 1;
+    }
+
+
+
+    //Funkcje zamykająca odpowiedzialna za zamkniecie okna po wykonaniu sekwencji
+
+    function off() {
+
+        window.close();
+    }
+    // Funkcej odpowiedzialne za włączenie odpowiednich lamp w danej sekwencji. Dzięki czemu nie zostaną włączone wszystkie lamki, a tylko te których potrzebujemy
+    function jeden() {
+         if (g1 === 2) {
+            $.ajax({ url: '@Url.Content("~/Photo/Gora")' });}
+        if (d1 === 1) {
+            $.ajax({ url: '@Url.Content("~/Photo/Dol")' });}
+        if (l1 === 3) {
+            $.ajax({ url: '@Url.Content("~/Photo/Lewo")' });}
+        if (p1 === 4) {
+            $.ajax({ url: '@Url.Content("~/Photo/Prawo")' });}
+
+    }
+
+    function dwa() {
+
+       if (g2 === 2) {
+            $.ajax({ url: '@Url.Content("~/Photo/Gora")' });}
+        if (d2 === 1) {
+            $.ajax({ url: '@Url.Content("~/Photo/Dol")' });}
+        if (l2 === 3) {
+            $.ajax({ url: '@Url.Content("~/Photo/Lewo")' });}
+        if (p2 === 4) {
+            $.ajax({ url: '@Url.Content("~/Photo/Prawo")' });}
+
+
+    }
+
+    function trzy() {
+
+        if (g3 === 2) {
+            $.ajax({ url: '@Url.Content("~/Photo/Gora")' });}
+        if (d3 === 1) { $.ajax({ url: '@Url.Content("~/Photo/Dol")' });}
+
+        if (l3 === 3) {  $.ajax({ url: '@Url.Content("~/Photo/Lewo")' });}
+
+        if (p3 === 4) { $.ajax({ url: '@Url.Content("~/Photo/Prawo")' }); }
+
+
+    }
+
+    function cztery() {
+
+        if (g4 === 2) {
+            $.ajax({ url: '@Url.Content("~/Photo/Gora")' });}
+        if (d4 === 1) { $.ajax({ url: '@Url.Content("~/Photo/Dol")' });}
+
+        if (l4 === 3) {  $.ajax({ url: '@Url.Content("~/Photo/Lewo")' });}
+
+        if (p4 === 4) { $.ajax({ url: '@Url.Content("~/Photo/Prawo")' }); }
+
+
+    }
+
+    function piec() {
+
+        if (g5 === 2) {
+            $.ajax({ url: '@Url.Content("~/Photo/Gora")' });}
+        if (d5 === 1) { $.ajax({ url: '@Url.Content("~/Photo/Dol")' });}
+
+        if (l5 === 3) {  $.ajax({ url: '@Url.Content("~/Photo/Lewo")' });}
+
+        if (p5 === 4) { $.ajax({ url: '@Url.Content("~/Photo/Prawo")' }); }
+
+
+    }
+
+
+    function zdjecie() {
+        webcam.capture()
+
+
+    }
+
+
+    // Funkcja uruchamiająca daną sekwencje w opowiednich odstępach czasoway setTime out uruchamia kazdą funkcjie w w podanych odstępach których czas jest wyrażony w microsekundach
+    function wykonaj() {
+
+        setTimeout(jeden, 1000);
+        setTimeout(zdjecie, 4000);
+
+        setTimeout(dwa, 24000);
+        setTimeout(zdjecie,27000);
+
+        setTimeout(trzy, 47000);
+        setTimeout(zdjecie,50000);
+
+        setTimeout(cztery, 70000);
+        setTimeout(zdjecie,73000);
+
+        setTimeout(piec, 93000);
+        setTimeout(zdjecie, 96000);
+
+
+
+       setTimeout(off, 117000);
+
+    }
+
+ function Uploadsubmit() {
+        debugger;
+        var src = $('img').attr('src');
+        src_array = src.split('/');
+        src = src_array[4];
+        if (src != "") {
+            $.ajax({
+                type: 'POST',
+                url: ("@Url.Content("~/Photo/Index")/"),
+               dataType: 'json',
+               data: { Imagename: src },
+               success: function () { }
+           });
+            window.opener.location.href = "http://localhost:55694/Photo/Changephoto";
+            self.close();}}
+</script>
+@using (Html.BeginForm())
+{
+    @section scripts
+{
+        <script src="@Url.Content("~/Scripts/jquery.webcam.js")">
+        </script>
+        <script type="text/javascript">
+            $("#Camera").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: "@Url.Content("~/Scripts/jscam.swf")",
+                onTick: function () { },
+                onSave: function () {
+                   UploadPic();
+                },
+                onCapture: function () {
+                    webcam.save("@Url.Content("~/Photo/Capture")/");
+             },
+                debug: function () { },
+                onLoad: function () { }
+
+            });
+
+
+        </script>
+    }
+    <header></header>
+    <section id="two" class="main style2">
+
+
+        <div style="margin: 0 auto; width: 980px; ">
+
+            <div style="float: left; border: 4px solid #ccc; padding: 5px">
+                <div id="Camera">
+                </div>
+                <br />
+                <input type="button" value="wykonaj sekwencje" onclick="javascript:wykonaj();" />
+            </div>
+            <div style="float: left; margin-left: 20px; border: 4px solid #ccc; padding: 5px">
+              
+                <font color="white">
+                    <b>
+                        pierwszego zdjęcie
+                    </b>
+                </font>
+                <input type="button" id="kolor1" value="Góra" onclick="G1();" />
+                <input type="button" id="kolor2" value="Dół" onclick="D1();" />
+                <input type="button" id="kolor3" value="Lewo" onclick="L1();" />
+                <input type="button" id="kolor4" value="Prawo" onclick="P1();" />
+                <br /><br />
+                <font color="white">
+                    <b>
+                        drugiego zdjęcie
+                    </b>
+                </font>
+                <input type="button" id="kolor5" value="Góra" onclick="G2();" />
+                <input type="button" id="kolor6" value="Dół" onclick="D2();" />
+                <input type="button" id="kolor7" value="Lewo" onclick="L2();" />
+                <input type="button" id="kolor8" value="Prawo" onclick="P2();" />
+                <br /><br />
+                <font color="white">
+                    <b>
+                        trzecie zdjęcie
+                    </b>
+                </font>
+                <input type="button" id="kolor9" value="Góra" onclick="G3();" />
+                <input type="button" id="kolor10" value="Dół" onclick="javascript:D3();" />
+                <input type="button" id="kolor11" value="Lewo" onclick="javascript:L3();" />
+                <input type="button" id="kolor12" value="Prawo" onclick="javascript:P3();" />
+                <br /><br />
+                <font color="white">
+                    <b>
+                        czwarte zdjęcie
+                    </b>
+                </font>
+                <input type="button" id="kolor13" value="Góra" onclick="javascript:G4();" />
+                <input type="button" id="kolor14" value="Dół" onclick="javascript:D4();" />
+                <input type="button" id="kolor15" value="Lewo" onclick="javascript:L4();" />
+                <input type="button" id="kolor16" value="Prawo" onclick="javascript:P4();" />
+                <br /><br />
+                <font color="white">
+                    <b>
+                        piate zdjecie
+                    </b>
+                </font>
+                <input type="button" id="kolor17" value="Góra" onclick="javascript:G5();" />
+                <input type="button" id="kolor18" value="Dół" onclick="javascript:D5();" />
+                <input type="button" id="kolor19" value="Lewo" onclick="javascript:L5();" />
+                <input type="button" id="kolor20" value="Prawo" onclick="javascript:P5();" />
+                <br /><br />
+
+
+            </div>
+        </div>
+
+
+
+    </section>
+}
+<script type="text/javascript">
+    window.onload = load();
+
+    function load() {
+        debugger;
+        document.getElementById('Submit1').disabled = true;
+    }
+
+</script>
