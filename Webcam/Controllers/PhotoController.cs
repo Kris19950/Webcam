@@ -16,6 +16,7 @@ using System.Collections.Generic;
 namespace WebcamMVC.Controllers
 {
     
+
     public class PhotoController : Controller
     {
         private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -47,9 +48,12 @@ namespace WebcamMVC.Controllers
         [HttpGet]
         public ActionResult Changephoto()
         {
+         
+
+   
             if (Convert.ToString(Session["val"]) != string.Empty)
             {
-                ViewBag.pic = "/Images/WebImages/" + Session["val"].ToString();
+                ViewBag.pic = "../../Images/WebImages/" + Session["val"].ToString();
             }
             else
             {
@@ -91,10 +95,14 @@ namespace WebcamMVC.Controllers
 
             return Json(path, JsonRequestBehavior.AllowGet);
         }
-
+        public Boolean lewo=false;
+        public Boolean prawo = false;
+        public Boolean gora = false;
+        public Boolean dol = false;
 
         public void Gora()
         {
+            gora = true;
             SerialPort ardo;
             ardo = new SerialPort();
             ardo.PortName = "COM5";
@@ -108,6 +116,7 @@ namespace WebcamMVC.Controllers
 
         public void Dol()
         {
+            dol = true;
             SerialPort ardo;
             ardo = new SerialPort();
             ardo.PortName = "COM5";
@@ -120,6 +129,7 @@ namespace WebcamMVC.Controllers
         }
         public void Lewo()
         {
+            lewo=true;
             SerialPort ardo;
             ardo = new SerialPort();
             ardo.PortName = "COM5";
@@ -132,6 +142,7 @@ namespace WebcamMVC.Controllers
         }
         public void Prawo()
         {
+            prawo = true;
             SerialPort ardo;
             ardo = new SerialPort();
             ardo.PortName = "COM5";
@@ -160,48 +171,115 @@ namespace WebcamMVC.Controllers
         //  }
         public ActionResult Capture()
         {
-            var stream = Request.InputStream;
-            string dump;
-
-            var userId = User.Identity.GetUserId();
-
-            var user = DbContext.Users
-                .Include(x => x.Photos)
-                .FirstOrDefault(x => x.Id.ToString() == userId);
-
-            using (var reader = new StreamReader(stream))
+            
+            DateTime dt = DateTime.Now;
+            string folderName = "~/Images/WebImages/";
+            string subFolder = dt.ToString("MM.dd.yyyy");
+            string pathString = System.IO.Path.Combine(folderName, subFolder);
+            if (Directory.Exists(pathString) )
             {
-                dump = reader.ReadToEnd();
-
-                DateTime nm = DateTime.Now;
-
-                string date = nm.ToString("yyyymmddMMss");
-
-                var path = Server.MapPath("~/Images/WebImages/" + date + ".jpg");
-
-                System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
                
-                ViewData["path"] = date + ".jpg";
 
-                Session["val"] = date + ".jpg";
+                var stream = Request.InputStream;
+                string dump;
 
-                if (user != null)
+                var userId = User.Identity.GetUserId();
+
+                var user = DbContext.Users
+                    .Include(x => x.Photos)
+                    .FirstOrDefault(x => x.Id.ToString() == userId);
+
+                using (var reader = new StreamReader(stream))
                 {
-                    var photo = new Photo
+                    dump = reader.ReadToEnd();
+                    
+                    DateTime nm = DateTime.Now;
+
+                    string date = nm.ToString("yyyy.MM.dd hh.mm");
+
+                    var path = Server.MapPath(pathString+"/" + date + ".jpg");
+
+                    System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
+
+                    ViewData["path"] = date + ".jpg";
+
+                    Session["val"] = date + ".jpg";
+
+                    if (user != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Bytes = dump,
-                        ImageType = "image/jpeg"
-                    };
+                        var photo = new Photo
+                        {
+                            Id = Guid.NewGuid(),
+                            Bytes = dump,
+                            ImageType = "image/jpeg"
+                        };
 
-                    user.Photos.Add(photo);
-                    DbContext.SaveChanges();
+                        user.Photos.Add(photo);
+                        DbContext.SaveChanges();
 
-                    ViewData["path"] = photo.Id.ToString();
+                        ViewData["path"] = photo.Id.ToString();
+                    }
                 }
+                Off();
             }
-            Off();
-           
+            else
+            {
+               
+               
+               // Directory.CreateDirectory(pathString);
+                var stream = Request.InputStream;
+                string dump;
+
+                var userId = User.Identity.GetUserId();
+
+                var user = DbContext.Users
+                    .Include(x => x.Photos)
+                    .FirstOrDefault(x => x.Id.ToString() == userId);
+
+                using (var reader = new StreamReader(stream))
+                {
+                    dump = reader.ReadToEnd();
+
+                    DateTime nm = DateTime.Now;
+
+                    string date = nm.ToString("yyyy.MM.dd hh.mm");
+                    date += " Oświetlenie ";
+                    if(gora==true)
+                    { date += "góra "; }
+                    if (dol == true)
+                    { date += "dół "; }
+                    if (prawo == true)
+                    { date += "prawo "; }
+                    if (lewo == true)
+                    { date += "lewo "; }
+                    if (gora != true&& dol!=true&&prawo!=true&&lewo!=true)
+                    { date += "wyłączone "; }
+
+                    var path = Server.MapPath("~/Images/WebImages/" +  date + ".jpg");
+                    System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
+  
+
+                    ViewData["path"] = date + ".jpg";
+                   
+                    Session["val"] = date + ".jpg";
+
+                    if (user != null)
+                    {
+                        var photo = new Photo
+                        {
+                            Id = Guid.NewGuid(),
+                            Bytes = dump,
+                            ImageType = "image/jpeg"
+                        };
+
+                        user.Photos.Add(photo);
+                        DbContext.SaveChanges();
+
+                        ViewData["path"] = photo.Id.ToString();
+                    }
+                }
+                Off();
+            }
             return View("Index");
 
         }       

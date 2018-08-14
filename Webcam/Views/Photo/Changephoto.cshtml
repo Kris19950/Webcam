@@ -28,16 +28,25 @@
         <h1>
             <ul class="menu">
                 <li><a href="#intro">Wprowadzenie</a></li>
-                <li><a href="#one">Personalizacja</a></li>
+
+
+
                 <li><a href="#two">Akwizycja Obrazu</a></li>
                 <li><a href="#work">Baza Danych</a></li>
 
-                <li>
-                    @Html.Action("UserInfo")
-                </li>
+              
+                 @if (User.Identity.IsAuthenticated)
+                 {
+                   <li><a href="#one">  @Html.Action("UserInfo")</a></li>
+                 }
+                 else
+                 {
+                   <li><a href="#one">Logowanie/rejestracja</a></li>
+                 }
+               
 
 
-            </ul>
+                </ul>
         </h1>
     </center>
 </header>
@@ -62,13 +71,21 @@
         <header>
             <h2>Personalizacja</h2>
         </header>
-        Do celów dalszej pracy systemu potrzebne są Państwa dane. Proszę o wybranie odpowiedniej opcj.
-        <br />
-        <input type="button" id="btnSave" value="Nowy użytkwnik" onclick="location.href='@Url.Action("Register", "Account")'"> <br />
-        <br />
-        <input type="button" id="btnSave" value="Kolejna wizyta" onclick="location.href='@Url.Action("Login", "Account")'">
-
-    </div>
+        @if (User.Identity.IsAuthenticated)
+        {<p>
+           Logowanie/ rejestracja przebiegło pomyślnie. Zapraszamy do dalszej pracy z systemem.
+        </p>
+        }
+        else {
+            <p>
+            Do celów dalszej pracy systemu potrzebne są Państwa dane.Proszę o wybranie odpowiedniej opcj.
+                </p>
+            <br />
+            <input type="button" id="btnSave" value="Nowy użytkwnik" onclick="location.href='@Url.Action("Register", "Account")'"> <br />
+           <br />
+           <input type="button" id="btnSave" value="Kolejna wizyta" onclick="location.href='@Url.Action("Login", "Account")'">
+        }
+        </div>
     <a href="#two" class="button style2 down anchored">Next</a>
 </section>
 
