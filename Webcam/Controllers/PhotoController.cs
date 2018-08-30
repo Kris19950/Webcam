@@ -129,7 +129,7 @@ namespace WebcamMVC.Controllers
         }
         public void Lewo()
         {
-            lewo=true;
+            lewo =true;
             SerialPort ardo;
             ardo = new SerialPort();
             ardo.PortName = "COM5";
@@ -171,13 +171,7 @@ namespace WebcamMVC.Controllers
         //  }
         public ActionResult Capture()
         {
-            
-            DateTime dt = DateTime.Now;
-            string folderName = "~/Images/WebImages/";
-            string subFolder = dt.ToString("MM.dd.yyyy");
-            string pathString = System.IO.Path.Combine(folderName, subFolder);
-            if (Directory.Exists(pathString) )
-            {
+                   
                
 
                 var stream = Request.InputStream;
@@ -196,54 +190,7 @@ namespace WebcamMVC.Controllers
                     DateTime nm = DateTime.Now;
 
                     string date = nm.ToString("yyyy.MM.dd hh.mm");
-
-                    var path = Server.MapPath(pathString+"/" + date + ".jpg");
-
-                    System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
-
-                    ViewData["path"] = date + ".jpg";
-
-                    Session["val"] = date + ".jpg";
-
-                    if (user != null)
-                    {
-                        var photo = new Photo
-                        {
-                            Id = Guid.NewGuid(),
-                            Bytes = dump,
-                            ImageType = "image/jpeg"
-                        };
-
-                        user.Photos.Add(photo);
-                        DbContext.SaveChanges();
-
-                        ViewData["path"] = photo.Id.ToString();
-                    }
-                }
-                Off();
-            }
-            else
-            {
-               
-               
-               // Directory.CreateDirectory(pathString);
-                var stream = Request.InputStream;
-                string dump;
-
-                var userId = User.Identity.GetUserId();
-
-                var user = DbContext.Users
-                    .Include(x => x.Photos)
-                    .FirstOrDefault(x => x.Id.ToString() == userId);
-
-                using (var reader = new StreamReader(stream))
-                {
-                    dump = reader.ReadToEnd();
-
-                    DateTime nm = DateTime.Now;
-
-                    string date = nm.ToString("yyyy.MM.dd hh.mm");
-                    date += " Oświetlenie ";
+                 date += " Oświetlenie ";
                     if(gora==true)
                     { date += "góra "; }
                     if (dol == true)
@@ -255,12 +202,12 @@ namespace WebcamMVC.Controllers
                     if (gora != true&& dol!=true&&prawo!=true&&lewo!=true)
                     { date += "wyłączone "; }
 
-                    var path = Server.MapPath("~/Images/WebImages/" +  date + ".jpg");
+                    var path = Server.MapPath("~/Images/WebImages/" + date + ".jpg");
+
                     System.IO.File.WriteAllBytes(path, String_To_Bytes2(dump));
-  
 
                     ViewData["path"] = date + ".jpg";
-                   
+
                     Session["val"] = date + ".jpg";
 
                     if (user != null)
@@ -279,7 +226,7 @@ namespace WebcamMVC.Controllers
                     }
                 }
                 Off();
-            }
+           
             return View("Index");
 
         }       
